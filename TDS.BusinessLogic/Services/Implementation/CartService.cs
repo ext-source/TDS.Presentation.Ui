@@ -1,26 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 
-using Ninject;
-
+using TDS.DataAccess;
 using TDS.DataAccess.EntityModels;
 
 namespace TDS.Business.Services.Implementation
 {
-    public class CartService : BaseService, ICartService
+    public class CartService : ICartService
     {
-        public CartService(IKernel kernel) 
-            : base(kernel)
+        private readonly IUnitOfWork<DbContext> unitOfWork;
+
+        public CartService(IUnitOfWork<DbContext> unitOfWork)
         {
+            if (unitOfWork == null)
+            {
+                throw new ArgumentNullException("unitOfWork");
+            }
+            this.unitOfWork = unitOfWork;
         }
 
         public void Test()
         {
-            IEnumerable<CartEntity> carts = UnitOfWork
-                .Get<CartEntity>()
-                .Include(e => e.Deliveries)
-                .Where(e => e.Count > 0)
-                .ToList();
+            int count = unitOfWork.For<CartEntity>()
+                .GetAll()
+                .Count();
         }
     }
 }

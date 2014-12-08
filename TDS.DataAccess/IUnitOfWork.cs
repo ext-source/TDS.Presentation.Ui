@@ -11,7 +11,7 @@ namespace TDS.DataAccess
             get;
         }
 
-        IGenericRepository<TEntity> Get<TEntity>()
+        IGenericRepository<TEntity> For<TEntity>()
             where TEntity : class;
     }
 }

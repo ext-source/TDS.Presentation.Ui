@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -22,7 +23,7 @@ namespace TDS.DataAccess.Implementation
             dbSet = context.Set<TEntity>();
         }
 
-        public IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
+        public IQueryable<TEntity> GetById(Expression<Func<TEntity, bool>> filter)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -32,6 +33,11 @@ namespace TDS.DataAccess.Implementation
             }
 
             return query;
+        }
+
+        public IEnumerable<TEntity> GetAll()
+        {
+            return dbSet.AsEnumerable();
         }
 
         public IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] toInclude)
@@ -45,7 +51,7 @@ namespace TDS.DataAccess.Implementation
             return query;
         }
 
-        public virtual TEntity Get(int id)
+        public virtual TEntity GetById(int id)
         {
             return dbSet.Find(id);
         }

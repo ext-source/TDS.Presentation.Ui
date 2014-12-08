@@ -1,42 +1,41 @@
 ﻿using System;
+using System.Data.Entity;
 
 using Ninject;
 
-using TDS.DataAccess.Mappings;
-
 namespace TDS.DataAccess.Implementation
 {
-    public class UnitOfWork : IUnitOfWork<AppContext>
+    public class UnitOfWork : IUnitOfWork<DbContext>
     {
         private bool disposed;
 
+        private readonly IContextAdapter<DbContext> context;
         private readonly IKernel kernel;
-        private readonly IContextAdapter<AppContext> contextAdapterAdapter = 
-            new ContextAdapter<AppContext>(new AppContext());
-
-        public UnitOfWork(IKernel kernel)
+        
+        public UnitOfWork(
+            IContextAdapter<DbContext> context, IKernel kernel)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
             if (kernel == null)
             {
                 throw new ArgumentNullException("kernel");
             }
+            this.context = context;
             this.kernel = kernel;
-
-            if (!kernel.HasModule(typeof (RepositoryMappingsModule<AppContext>).FullName))
-            {
-                kernel.Load(new RepositoryMappingsModule<AppContext>(contextAdapterAdapter));
-            }
         }
 
-        public IContextAdapter<AppContext> ContextAdapter
+        public IContextAdapter<DbContext> ContextAdapter
         {
             get
             {
-                return contextAdapterAdapter;
+                return context;
             }
         }
 
-        public IGenericRepository<TEntity> Get<TEntity>() 
+        public IGenericRepository<TEntity> For<TEntity>() 
             where TEntity : class
         {
             return kernel.Get<IGenericRepository<TEntity>>();

@@ -1,18 +1,17 @@
+using System.Data.Entity.Migrations;
+
+using TDS.DataAccess.Implementation;
+
 namespace TDS.DataAccess.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<TDS.DataAccess.Implementation.AppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AppContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(TDS.DataAccess.Implementation.AppContext context)
+        protected override void Seed(AppContext context)
         {
             //  This method will be called after migrating to the latest version.
 

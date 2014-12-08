@@ -246,6 +246,10 @@
       <Project>{A5D15754-FD84-4B1A-A6D5-36117AB26004}</Project>
       <Name>TDS.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TDS.Mappings\TDS.Mappings.csproj">
+      <Project>{7e03d969-e020-4f1d-9cc1-f53e947f51a0}</Project>
+      <Name>TDS.Mappings</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -6,7 +6,7 @@ using TDS.DataAccess.Implementation;
 
 namespace TDS.Business
 {
-    internal class ServiceMappingsModule : NinjectModule
+    public class ServiceMappingsModule : NinjectModule
     {
         public override void Load()
         {

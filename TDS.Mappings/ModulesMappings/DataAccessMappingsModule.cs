@@ -2,16 +2,17 @@
 
 using Ninject.Modules;
 
+using TDS.DataAccess;
 using TDS.DataAccess.EntityModels;
 using TDS.DataAccess.Implementation;
 
-namespace TDS.DataAccess.Mappings
+namespace TDS.Mappings.ModulesMappings
 {
-    internal class RepositoryMappingsModule<TContext> : NinjectModule
+    public class DataAccessMappingModule<TContext> : NinjectModule
     {
         private readonly IContextAdapter<TContext> contextAdapter;
 
-        public RepositoryMappingsModule(IContextAdapter<TContext> contextAdapter)
+        public DataAccessMappingModule(IContextAdapter<TContext> contextAdapter)
         {
             if (contextAdapter == null)
             {
@@ -24,12 +25,12 @@ namespace TDS.DataAccess.Mappings
         {
             Bind<IGenericRepository<CartEntity>>()
                 .To<GenericRepository<CartEntity>>()
-                .WithConstructorArgument(typeof (TContext), contextAdapter.Context);
+                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
 
             Bind<IGenericRepository<CategoryEntity>>()
                 .To<GenericRepository<CategoryEntity>>()
                 .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
-            
+
             Bind<IGenericRepository<ClientEntity>>()
                 .To<GenericRepository<ClientEntity>>()
                 .WithConstructorArgument(typeof(TContext), contextAdapter.Context);

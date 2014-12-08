@@ -11,8 +11,7 @@ namespace TDS.Business.Services.Implementation
     {
         private readonly UserManager<UserProfileEntity> userManager;  
 
-        public AccountService(IKernel kernel) 
-            : base(kernel)
+        public AccountService(IKernel kernel) : base(kernel)
         {
             userManager = new UserManager<UserProfileEntity>(
                 new UserStore<UserProfileEntity>(UnitOfWork.ContextAdapter.Context));

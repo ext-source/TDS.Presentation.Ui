@@ -1,19 +1,24 @@
-using TDS.Business.Services;
-using TDS.Business.Services.Implementation;
+using System;
+using System.Data.Entity;
+using System.Web;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TDS.Presentation.Ui.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TDS.Presentation.Ui.App_Start.NinjectWebCommon), "Stop")]
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
-namespace TDS.Presentation.Ui.App_Start
+using Ninject;
+using Ninject.Web.Common;
+
+using TDS.DataAccess;
+using TDS.DataAccess.Implementation;
+using TDS.Mappings.ModulesMappings;
+using TDS.Presentation.Ui;
+
+using WebActivatorEx;
+
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
+
+namespace TDS.Presentation.Ui
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
@@ -48,7 +53,10 @@ namespace TDS.Presentation.Ui.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                RegisterServices(kernel);
+                PreLoad(kernel);
+
+                LoadModules(kernel);
+
                 return kernel;
             }
             catch
@@ -62,11 +70,20 @@ namespace TDS.Presentation.Ui.App_Start
         /// Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
+        private static void PreLoad(IKernel kernel)
         {
-            kernel.Bind<IAccountService>()
-                .To<AccountService>()
+            kernel.Bind<IContextAdapter<DbContext>>()
+                .ToProvider<AppContextProvider>()
                 .InRequestScope();
-        }        
+        }
+
+        private static void LoadModules(IKernel kernel)
+        {
+            kernel.Load(
+                new BussinessMappingsModule(),
+                new PresentationMappingModule(), 
+                new DataAccessMappingModule<DbContext>(
+                    contextAdapter: kernel.Get<IContextAdapter<DbContext>>()));
+        }
     }
 }

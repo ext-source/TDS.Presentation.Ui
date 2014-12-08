@@ -1,7 +1,10 @@
 ﻿using Microsoft.Owin;
+
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TDS.Presentation.Ui.Startup))]
+using TDS.Presentation.Ui;
+
+[assembly: OwinStartup(typeof(Startup))]
 namespace TDS.Presentation.Ui
 {
     public partial class Startup

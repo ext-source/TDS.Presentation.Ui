@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -12,7 +13,13 @@ namespace TDS.DataAccess
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter);
+        IQueryable<TEntity> GetById(Expression<Func<TEntity, bool>> filter);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<TEntity> GetAll();
 
         /// <summary>
         /// 
@@ -26,7 +33,7 @@ namespace TDS.DataAccess
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        TEntity Get(int id);
+        TEntity GetById(int id);
 
         /// <summary>
         /// 

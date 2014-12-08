@@ -63,12 +63,12 @@
     <Compile Include="EntityModels\UserProfileEntity.cs" />
     <Compile Include="IContextAdapter.cs" />
     <Compile Include="Implementation\ContextAdapter.cs" />
+    <Compile Include="Implementation\AppContextProvider.cs" />
     <Compile Include="Implementation\GenericRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="Implementation\AppContext.cs" />
     <Compile Include="Implementation\UnitOfWork.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Mappings\RepositoryMappingsModule.cs" />
     <Compile Include="Migrations\201412071847409_initial.cs" />
     <Compile Include="Migrations\201412071847409_initial.Designer.cs">
       <DependentUpon>201412071847409_initial.cs</DependentUpon>
@@ -84,6 +84,7 @@
       <DependentUpon>201412071847409_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
