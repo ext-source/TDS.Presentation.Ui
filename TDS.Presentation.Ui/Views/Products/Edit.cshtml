@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using TDS.Presentation.Ui.Models
 @model TDS.Presentation.Ui.Models.ProductViewModel
 
 @{
@@ -46,9 +47,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Categories, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Categories, 
-                    Model.Categories.Select(e => new SelectListItem { Text = e.Name, Value = e.CategoryEntityId.ToString() }))
-                @Html.ValidationMessageFor(model => model.Categories)
+                @Html.DropDownList("CategoryId", 
+                    ((ICollection<CategoryViewModel>) ViewData["Categories"]).Select(e => new SelectListItem { Text = e.Name, Value = e.CategoryEntityId.ToString() }))
+                @Html.ValidationMessageFor(model => model.Categories.CategoryEntityId)
             </div>
         </div>
 

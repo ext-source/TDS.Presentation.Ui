@@ -13,7 +13,7 @@ namespace TDS.DataAccess
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IQueryable<TEntity> GetById(Expression<Func<TEntity, bool>> filter);
+        IQueryable<TEntity> GetBy(Expression<Func<TEntity, bool>> filter);
 
         /// <summary>
         /// 

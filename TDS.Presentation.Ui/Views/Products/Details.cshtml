@@ -10,7 +10,7 @@
 
 <div>
     <h4>ProductEntity</h4>
-	<hr />
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -40,12 +40,7 @@
             @Html.DisplayNameFor(model => model.Categories)
         </dt>
         <dd>
-            <ul>
-                @foreach (CategoryViewModel category in Model.Categories)
-                {
-                    <li>@category.Name</li>
-                }
-            </ul>
+            @Html.DisplayFor(model => model.Categories.Name)
         </dd>
     </dl>
 </div>

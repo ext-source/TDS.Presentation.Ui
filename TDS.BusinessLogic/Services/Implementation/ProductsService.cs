@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using Ninject;
 
@@ -38,6 +40,11 @@ namespace TDS.Business.Services.Implementation
             existing.UpdateDate = DateTime.Now;
 
             UnitOfWork.SaveChanges();
+        }
+
+        public ICollection<ProductEntity> Search(string content)
+        {
+            return ServiceRepo.GetBy(e => e.Name.Contains(content)).ToList();
         }
     }
 }

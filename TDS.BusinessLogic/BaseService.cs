@@ -13,7 +13,7 @@ namespace TDS.Business
         where TObject : class 
     {
         private readonly IKernel kernel;
-        protected readonly IUnitOfWork<DbContext> UnitOfWork;
+        private readonly IUnitOfWork<DbContext> unitOfWork;
 
         protected BaseService(IKernel kernel)
         {
@@ -23,17 +23,33 @@ namespace TDS.Business
                 throw new ArgumentNullException("kernel");
             }
 
-            UnitOfWork = kernel.Get<IUnitOfWork<DbContext>>();
+            unitOfWork = kernel.Get<IUnitOfWork<DbContext>>();
+        }
+
+        public IGenericRepository<TObject> ServiceRepo
+        {
+            get
+            {
+                return unitOfWork.For<TObject>();
+            }
+        }
+
+        public IUnitOfWork<DbContext> UnitOfWork
+        {
+            get
+            {
+                return unitOfWork;
+            }
         }
 
         public virtual ICollection<TObject> GetAll()
         {
-            return UnitOfWork.For<TObject>().GetAll().ToList();
+            return unitOfWork.For<TObject>().GetAll().ToList();
         }
 
         public virtual TObject GetById(int id)
         {
-            return UnitOfWork.For<TObject>().GetById(id);
+            return unitOfWork.For<TObject>().GetById(id);
         }
 
         public virtual void Update(TObject objectToUpdate)
@@ -42,8 +58,8 @@ namespace TDS.Business
             {
                 throw new ArgumentNullException("objectToUpdate");
             }
-            UnitOfWork.For<TObject>().Update(objectToUpdate);
-            UnitOfWork.SaveChanges();
+            unitOfWork.For<TObject>().Update(objectToUpdate);
+            unitOfWork.SaveChanges();
         }
 
         public virtual TObject Create()
@@ -58,9 +74,9 @@ namespace TDS.Business
                 throw new ArgumentNullException("objectToCreate");
             }
 
-            TObject createdObject = UnitOfWork.For<TObject>().Insert(objectToCreate);
+            TObject createdObject = unitOfWork.For<TObject>().Insert(objectToCreate);
 
-            UnitOfWork.SaveChanges();
+            unitOfWork.SaveChanges();
 
             return createdObject;
         }
@@ -71,14 +87,14 @@ namespace TDS.Business
             {
                 throw new ArgumentNullException("objectToDelete");
             }
-            UnitOfWork.For<TObject>().Delete(objectToDelete);
-            UnitOfWork.SaveChanges();
+            unitOfWork.For<TObject>().Delete(objectToDelete);
+            unitOfWork.SaveChanges();
         }
 
         public virtual void Delete(int id)
         {
-            UnitOfWork.For<TObject>().Delete(id);
-            UnitOfWork.SaveChanges();
+            unitOfWork.For<TObject>().Delete(id);
+            unitOfWork.SaveChanges();
         }
     }
 }

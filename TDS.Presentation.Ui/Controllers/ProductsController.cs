@@ -34,7 +34,7 @@ namespace TDS.Presentation.Ui.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<ProductViewModel> products = 
+            IEnumerable<ProductViewModel> products =
                 Mapper.Map<ICollection<ProductEntity>, ICollection<ProductViewModel>>(
                     productsService.GetAll());
 
@@ -58,7 +58,7 @@ namespace TDS.Presentation.Ui.Controllers
                     result = HttpNotFound();
                 }
             }
-           
+
             return result;
         }
 
@@ -69,7 +69,7 @@ namespace TDS.Presentation.Ui.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ProductEntityId,Name,ProductInfo")] ProductEntity entity)
+        public ActionResult Create([Bind(Include = "ProductEntityId,Name,ProductInfo")] ProductEntity entity)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace TDS.Presentation.Ui.Controllers
         public ActionResult Edit(int? id)
         {
             ActionResult result = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-         
+
             if (id != null)
             {
                 ProductEntity entity = productsService.GetById(id.Value);
@@ -91,12 +91,16 @@ namespace TDS.Presentation.Ui.Controllers
                 if (entity != null)
                 {
                     ProductViewModel viewModel = Mapper.Map<ProductViewModel>(entity);
-                    viewModel.Categories = Mapper.Map<ICollection<CategoryEntity>, ICollection<CategoryViewModel>>(categoryService.GetAll());
-                    result = View(viewModel);    
+
+                    ViewData["Categories"] = Mapper
+                        .Map<ICollection<CategoryEntity>, ICollection<CategoryViewModel>>(
+                            categoryService.GetAll());
+
+                    result = View(viewModel);
                 }
                 else
                 {
-                    result = HttpNotFound();    
+                    result = HttpNotFound();
                 }
             }
 
@@ -105,12 +109,14 @@ namespace TDS.Presentation.Ui.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ProductEntityId,Name,ProductInfo")] ProductViewModel viewModel)
+        public ActionResult Edit(
+            [Bind(Include = "ProductEntityId,Name,ProductInfo,CategoryId")] 
+            ProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 ProductEntity entityToUpdate = Mapper.Map<ProductEntity>(viewModel);
-
+                entityToUpdate.Categories = categoryService.GetById(viewModel.CategoryId);
                 productsService.Update(entityToUpdate);
 
                 return RedirectToAction("Index");
@@ -148,6 +154,15 @@ namespace TDS.Presentation.Ui.Controllers
             productsService.Delete(id);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Search(string content)
+        {
+            IEnumerable<ProductViewModel> products =
+                Mapper.Map<ICollection<ProductEntity>, ICollection<ProductViewModel>>(
+                    productsService.Search(content));
+
+            return View("Index", products);
         }
     }
 }

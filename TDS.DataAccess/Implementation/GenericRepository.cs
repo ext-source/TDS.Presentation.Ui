@@ -23,7 +23,7 @@ namespace TDS.DataAccess.Implementation
             dbSet = contextAdapter.Context.Set<TEntity>();
         }
 
-        public IQueryable<TEntity> GetById(Expression<Func<TEntity, bool>> filter)
+        public IQueryable<TEntity> GetBy(Expression<Func<TEntity, bool>> filter)
         {
             IQueryable<TEntity> query = dbSet;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TDS.Presentation.Ui.Models
 {
@@ -35,7 +35,14 @@ namespace TDS.Presentation.Ui.Models
             set;
         }
 
-        public virtual ICollection<CategoryViewModel> Categories
+        public virtual CategoryViewModel Categories
+        {
+            get;
+            set;
+        }
+
+        [Required]
+        public int CategoryId
         {
             get;
             set;
