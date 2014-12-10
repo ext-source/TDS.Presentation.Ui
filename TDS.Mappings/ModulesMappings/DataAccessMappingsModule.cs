@@ -23,41 +23,39 @@ namespace TDS.Mappings.ModulesMappings
 
         public override void Load()
         {
+            RegisterRepositories();
+
+            Bind<ProductEntity>().ToSelf();
+        }
+
+        private void RegisterRepositories()
+        {
             Bind<IGenericRepository<CartEntity>>()
-                .To<GenericRepository<CartEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<CartEntity>>();
 
             Bind<IGenericRepository<CategoryEntity>>()
-                .To<GenericRepository<CategoryEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<CategoryEntity>>();
 
             Bind<IGenericRepository<ClientEntity>>()
-                .To<GenericRepository<ClientEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<ClientEntity>>();
 
             Bind<IGenericRepository<DeliveryEntity>>()
-                .To<GenericRepository<DeliveryEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<DeliveryEntity>>();
 
             Bind<IGenericRepository<PaymentEntity>>()
-                .To<GenericRepository<PaymentEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<PaymentEntity>>();
 
             Bind<IGenericRepository<ProductEntity>>()
-                .To<GenericRepository<ProductEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<ProductEntity>>();
 
             Bind<IGenericRepository<ProviderEntity>>()
-                .To<GenericRepository<ProviderEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<ProviderEntity>>();
 
             Bind<IGenericRepository<PurchaseEntity>>()
-                .To<GenericRepository<PurchaseEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<PurchaseEntity>>();
 
             Bind<IGenericRepository<UserProfileEntity>>()
-                .To<GenericRepository<UserProfileEntity>>()
-                .WithConstructorArgument(typeof(TContext), contextAdapter.Context);
+                .To<GenericRepository<UserProfileEntity>>();
         }
     }
 }

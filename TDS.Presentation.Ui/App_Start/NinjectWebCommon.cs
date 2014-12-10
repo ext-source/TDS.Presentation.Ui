@@ -53,7 +53,7 @@ namespace TDS.Presentation.Ui
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                PreLoad(kernel);
+                Preload(kernel);
 
                 LoadModules(kernel);
 
@@ -70,7 +70,7 @@ namespace TDS.Presentation.Ui
         /// Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void PreLoad(IKernel kernel)
+        private static void Preload(IKernel kernel)
         {
             kernel.Bind<IContextAdapter<DbContext>>()
                 .ToProvider<AppContextProvider>()

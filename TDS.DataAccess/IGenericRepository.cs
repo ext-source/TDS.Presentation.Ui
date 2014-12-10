@@ -39,7 +39,7 @@ namespace TDS.DataAccess
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        void Insert(TEntity entity);
+        TEntity Insert(TEntity entity);
 
         /// <summary>
         /// 

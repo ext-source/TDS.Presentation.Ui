@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TDS.DataAccess.EntityModels
+﻿namespace TDS.Presentation.Ui.Models
 {
-    [Table("Category")]
-    public class CategoryEntity
+    public class CategoryViewModel
     {
         public int CategoryEntityId
         {

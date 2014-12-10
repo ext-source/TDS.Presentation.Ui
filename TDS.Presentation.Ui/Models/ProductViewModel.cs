@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TDS.DataAccess.EntityModels
+namespace TDS.Presentation.Ui.Models
 {
-    [Table("Product")]
-    public class ProductEntity
+    public class ProductViewModel
     {
         public int ProductEntityId
         {
-            get; 
+            get;
             set;
         }
 
         public string Name
         {
-            get; 
+            get;
             set;
         }
 
@@ -37,7 +35,7 @@ namespace TDS.DataAccess.EntityModels
             set;
         }
 
-        public virtual CategoryEntity Categories
+        public virtual ICollection<CategoryViewModel> Categories
         {
             get;
             set;

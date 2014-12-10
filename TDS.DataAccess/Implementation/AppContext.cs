@@ -18,7 +18,7 @@ namespace TDS.DataAccess.Implementation
             base.OnModelCreating(modelBuilder);
 
             Database.SetInitializer<AppContext>(null);
-
+            
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });

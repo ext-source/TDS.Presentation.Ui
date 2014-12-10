@@ -2,7 +2,7 @@
 
 using TDS.DataAccess.EntityModels;
 
-namespace TDS.Business.Services
+namespace TDS.Business.Services.Interface
 {
     public interface IAccountService
     {

@@ -6,7 +6,9 @@ namespace TDS.DataAccess.Implementation
     {
         protected override IContextAdapter<AppContext> CreateInstance(IContext context)
         {
-            return new ContextAdapter<AppContext>(new AppContext());
+            AppContext appContext = new AppContext();
+            //appContext.Configuration.AutoDetectChangesEnabled = false;
+            return new ContextAdapter<AppContext>(appContext);
         }
     }
 }

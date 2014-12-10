@@ -2,6 +2,7 @@
 using System.Data.Entity;
 
 using Ninject;
+using Ninject.Parameters;
 
 namespace TDS.DataAccess.Implementation
 {
@@ -38,10 +39,11 @@ namespace TDS.DataAccess.Implementation
         public IGenericRepository<TEntity> For<TEntity>() 
             where TEntity : class
         {
-            return kernel.Get<IGenericRepository<TEntity>>();
+            return kernel.Get<IGenericRepository<TEntity>>(
+                new ConstructorArgument("contextAdapter", ContextAdapter));
         }
 
-        public void Save()
+        public void SaveChanges()
         {
             ContextAdapter.Context.SaveChanges();
         }

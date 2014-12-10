@@ -9,6 +9,7 @@ namespace TDS.Presentation.Ui
     {
         protected void Application_Start()
         {
+            MapperConfig.RegisterMappings();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

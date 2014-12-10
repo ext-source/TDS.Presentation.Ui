@@ -1,7 +1,8 @@
 ﻿using Ninject.Modules;
 
-using TDS.Business.Services;
 using TDS.Business.Services.Implementation;
+using TDS.Business.Services.Interface;
+using TDS.DataAccess.EntityModels;
 
 namespace TDS.Mappings.ModulesMappings
 {
@@ -11,6 +12,12 @@ namespace TDS.Mappings.ModulesMappings
         {
             Bind<IAccountService>()
                 .To<AccountService>();
+
+            Bind<IProductsService<ProductEntity>>()
+                .To<ProductsService>();
+
+            Bind<ICategoryService<CategoryEntity>>()
+                .To<CategoryService>();
         }
     }
 }

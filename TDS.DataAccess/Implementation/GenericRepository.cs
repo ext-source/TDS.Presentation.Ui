@@ -9,18 +9,18 @@ namespace TDS.DataAccess.Implementation
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> 
         where TEntity : class
     {
-        private readonly AppContext context;
         private readonly DbSet<TEntity> dbSet;
-        
-        public GenericRepository(AppContext context)
+        private readonly IContextAdapter<DbContext> contextAdapter;
+
+        public GenericRepository(IContextAdapter<DbContext> contextAdapter)
         {
-            if (context == null)
+            if (contextAdapter == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException("contextAdapter");
             }
-            this.context = context;
-            
-            dbSet = context.Set<TEntity>();
+            this.contextAdapter = contextAdapter;
+
+            dbSet = contextAdapter.Context.Set<TEntity>();
         }
 
         public IQueryable<TEntity> GetById(Expression<Func<TEntity, bool>> filter)
@@ -56,9 +56,9 @@ namespace TDS.DataAccess.Implementation
             return dbSet.Find(id);
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual TEntity Insert(TEntity entity)
         {
-            dbSet.Add(entity);
+            return dbSet.Add(entity);
         }
 
         public virtual void Delete(int id)
@@ -69,7 +69,7 @@ namespace TDS.DataAccess.Implementation
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (contextAdapter.Context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 dbSet.Attach(entityToDelete);
             }
@@ -79,7 +79,7 @@ namespace TDS.DataAccess.Implementation
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            contextAdapter.Context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

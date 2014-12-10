@@ -69,9 +69,9 @@
     <Compile Include="Implementation\AppContext.cs" />
     <Compile Include="Implementation\UnitOfWork.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Migrations\201412071847409_initial.cs" />
-    <Compile Include="Migrations\201412071847409_initial.Designer.cs">
-      <DependentUpon>201412071847409_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201412100110247_Init.cs" />
+    <Compile Include="Migrations\201412100110247_Init.Designer.cs">
+      <DependentUpon>201412100110247_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,11 +80,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201412071847409_initial.resx">
-      <DependentUpon>201412071847409_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201412100110247_Init.resx">
+      <DependentUpon>201412100110247_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,11 +3,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 using Ninject;
 
+using TDS.Business.Services.Interface;
 using TDS.DataAccess.EntityModels;
 
 namespace TDS.Business.Services.Implementation
 {
-    public class AccountService : BaseService, IAccountService
+    public class AccountService : BaseService<UserProfileEntity>, IAccountService
     {
         private readonly UserManager<UserProfileEntity> userManager;  
 

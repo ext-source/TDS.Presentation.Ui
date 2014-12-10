@@ -1,8 +1,9 @@
-using System.Data.Entity.Migrations;
-
 namespace TDS.DataAccess.Migrations
 {
-    public partial class initial : DbMigration
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -42,11 +43,8 @@ namespace TDS.DataAccess.Migrations
                     {
                         CategoryEntityId = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        ProductEntity_ProductEntityId = c.Int(),
                     })
-                .PrimaryKey(t => t.CategoryEntityId)
-                .ForeignKey("dbo.Product", t => t.ProductEntity_ProductEntityId)
-                .Index(t => t.ProductEntity_ProductEntityId);
+                .PrimaryKey(t => t.CategoryEntityId);
             
             CreateTable(
                 "dbo.Client",
@@ -94,10 +92,14 @@ namespace TDS.DataAccess.Migrations
                     {
                         ProductEntityId = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        CreateDate = c.DateTime(nullable: false),
                         UpdateDate = c.DateTime(nullable: false),
                         ProductInfo = c.String(),
+                        Categories_CategoryEntityId = c.Int(),
                     })
-                .PrimaryKey(t => t.ProductEntityId);
+                .PrimaryKey(t => t.ProductEntityId)
+                .ForeignKey("dbo.Category", t => t.Categories_CategoryEntityId)
+                .Index(t => t.Categories_CategoryEntityId);
             
             CreateTable(
                 "dbo.Provider",
@@ -189,7 +191,7 @@ namespace TDS.DataAccess.Migrations
             DropForeignKey("dbo.IdentityUserRoles", "RoleId", "dbo.IdentityRoles");
             DropForeignKey("dbo.IdentityUserLogins", "User_Id", "dbo.IdentityUsers");
             DropForeignKey("dbo.IdentityUserClaims", "User_Id", "dbo.IdentityUsers");
-            DropForeignKey("dbo.Category", "ProductEntity_ProductEntityId", "dbo.Product");
+            DropForeignKey("dbo.Product", "Categories_CategoryEntityId", "dbo.Category");
             DropForeignKey("dbo.Purchase", "ClientEntity_ClientEntityId", "dbo.Client");
             DropForeignKey("dbo.Purchase", "Payment_PaymentEntityId", "dbo.Payment");
             DropForeignKey("dbo.Delivery", "PurchaseEntity_PurchaseEntityId", "dbo.Purchase");
@@ -200,10 +202,10 @@ namespace TDS.DataAccess.Migrations
             DropIndex("dbo.IdentityUserRoles", new[] { "RoleId" });
             DropIndex("dbo.IdentityUserLogins", new[] { "User_Id" });
             DropIndex("dbo.IdentityUserClaims", new[] { "User_Id" });
+            DropIndex("dbo.Product", new[] { "Categories_CategoryEntityId" });
             DropIndex("dbo.Purchase", new[] { "ClientEntity_ClientEntityId" });
             DropIndex("dbo.Purchase", new[] { "Payment_PaymentEntityId" });
             DropIndex("dbo.Client", new[] { "Cart_CartEntityId" });
-            DropIndex("dbo.Category", new[] { "ProductEntity_ProductEntityId" });
             DropIndex("dbo.Delivery", new[] { "PurchaseEntity_PurchaseEntityId" });
             DropIndex("dbo.Delivery", new[] { "CartEntity_CartEntityId" });
             DropTable("dbo.UserProfile");
