@@ -18,6 +18,12 @@ namespace TDS.Mappings.ModulesMappings
 
             Bind<ICategoryService<CategoryEntity>>()
                 .To<CategoryService>();
+
+            Bind<IDeliveryService<DeliveryEntity>>()
+                .To<DeliveryService>();
+
+            Bind<IProviderService<ProviderEntity>>()
+                .To<ProviderService>();
         }
     }
 }

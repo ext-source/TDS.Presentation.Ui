@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TDS.DataAccess.EntityModels
+namespace TDS.Presentation.Ui.Models
 {
-    [Table("Delivery")]
-    public class DeliveryEntity
+    public class DeliveryViewModel
     {
         public int DeliveryEntityId
         {
@@ -43,7 +41,25 @@ namespace TDS.DataAccess.EntityModels
             set;
         }
 
-        public virtual ICollection<CartEntity> Carts
+        public ICollection<ProductViewModel> Products
+        {
+            get;
+            set;
+        }
+
+        public ICollection<ProviderViewModel> Providers
+        {
+            get;
+            set;
+        }
+
+        public ProductViewModel CurrentProduct
+        {
+            get;
+            set;
+        }
+
+        public ProviderViewModel CurrentProvider
         {
             get;
             set;

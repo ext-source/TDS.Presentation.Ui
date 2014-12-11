@@ -10,8 +10,12 @@ namespace TDS.Presentation.Ui
         public static void RegisterMappings()
         {
             Mapper.CreateMap<CategoryEntity, CategoryViewModel>().ReverseMap();
-            Mapper.CreateMap<ProductEntity, ProductViewModel>();
-            Mapper.CreateMap<ProductViewModel, ProductEntity>();
+
+            Mapper.CreateMap<ProductEntity, ProductViewModel>().ReverseMap();
+
+            Mapper.CreateMap<ProviderEntity, ProviderViewModel>().ReverseMap();
+
+            Mapper.CreateMap<DeliveryEntity, DeliveryViewModel>().ReverseMap();
         }
     }
 }

@@ -64,14 +64,18 @@
     <Compile Include="IBaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementation\CategoryService.cs" />
+    <Compile Include="Services\Implementation\DeliveryService.cs" />
     <Compile Include="Services\Implementation\ProductsService.cs" />
+    <Compile Include="Services\Implementation\ProviderService.cs" />
     <Compile Include="Services\Interface\IAccountService.cs" />
     <Compile Include="Services\Interface\ICartService.cs" />
     <Compile Include="Services\Implementation\AccountService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Services\Implementation\CartService.cs" />
     <Compile Include="Services\Interface\ICategoryService.cs" />
+    <Compile Include="Services\Interface\IDeliveryService.cs" />
     <Compile Include="Services\Interface\IProductsService.cs" />
+    <Compile Include="Services\Interface\IProviderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TDS.DataAccess\TDS.DataAccess.csproj">

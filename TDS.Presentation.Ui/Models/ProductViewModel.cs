@@ -11,6 +11,7 @@ namespace TDS.Presentation.Ui.Models
             set;
         }
 
+        [Required]
         public string Name
         {
             get;
@@ -29,6 +30,7 @@ namespace TDS.Presentation.Ui.Models
             set;
         }
 
+        [Required]
         public string ProductInfo
         {
             get;
@@ -43,6 +45,24 @@ namespace TDS.Presentation.Ui.Models
 
         [Required]
         public int CategoryId
+        {
+            get;
+            set;
+        }
+
+        public int Cost
+        {
+            get;
+            set;
+        }
+
+        public bool IsExists
+        {
+            get;
+            set;
+        }
+
+        public ProviderViewModel Provider
         {
             get;
             set;

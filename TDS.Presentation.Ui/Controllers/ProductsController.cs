@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 
@@ -15,30 +14,39 @@ namespace TDS.Presentation.Ui.Controllers
     {
         private readonly IProductsService<ProductEntity> productsService;
         private readonly ICategoryService<CategoryEntity> categoryService;
+        private readonly IDeliveryService<DeliveryEntity> deliveryService;
+        private readonly IProviderService<ProviderEntity> providerService;
 
         public ProductsController(
             IProductsService<ProductEntity> productsService,
-            ICategoryService<CategoryEntity> categoryService)
+            ICategoryService<CategoryEntity> categoryService,
+            IDeliveryService<DeliveryEntity> deliveryService,
+            IProviderService<ProviderEntity> providerService)
         {
-            if (productsService == null)
-            {
-                throw new ArgumentNullException("productsService");
-            }
-            if (categoryService == null)
-            {
-                throw new ArgumentNullException("categoryService");
-            }
             this.productsService = productsService;
             this.categoryService = categoryService;
+            this.deliveryService = deliveryService;
+            this.providerService = providerService;
         }
 
         public ActionResult Index()
         {
-            IEnumerable<ProductViewModel> products =
-                Mapper.Map<ICollection<ProductEntity>, ICollection<ProductViewModel>>(
-                    productsService.GetAll());
+            List<ProductViewModel> viewsModels = new List<ProductViewModel>();
 
-            return View(products);
+            foreach (ProductEntity product in productsService.GetAll())
+            {
+                foreach (DeliveryEntity delivery in deliveryService.GetByProductId(product.ProductEntityId))
+                {
+                    ProductViewModel viewModel = Mapper.Map<ProductViewModel>(product);
+                    
+                    viewModel.Cost = delivery.Cost;
+                    viewModel.IsExists = delivery.Count > 0;
+                    viewModel.Provider = Mapper.Map<ProviderViewModel>(providerService.GetById(delivery.ProviderEntityId));
+
+                    viewsModels.Add(viewModel);
+                }
+            }
+            return View(viewsModels);
         }
 
         public ActionResult Details(int? id)
@@ -158,11 +166,23 @@ namespace TDS.Presentation.Ui.Controllers
 
         public ActionResult Search(string content)
         {
-            IEnumerable<ProductViewModel> products =
-                Mapper.Map<ICollection<ProductEntity>, ICollection<ProductViewModel>>(
-                    productsService.Search(content));
+            List<ProductViewModel> viewsModels = new List<ProductViewModel>();
 
-            return View("Index", products);
+            foreach (ProductEntity product in productsService.Search(content))
+            {
+                foreach (DeliveryEntity delivery in deliveryService.GetByProductId(product.ProductEntityId))
+                {
+                    ProductViewModel viewModel = Mapper.Map<ProductViewModel>(product);
+
+                    viewModel.Cost = delivery.Cost;
+                    viewModel.IsExists = delivery.Count > 0;
+                    viewModel.Provider = Mapper.Map<ProviderViewModel>(providerService.GetById(delivery.ProviderEntityId));
+
+                    viewsModels.Add(viewModel);
+                }
+            }
+
+            return View("Index", viewsModels);
         }
     }
 }

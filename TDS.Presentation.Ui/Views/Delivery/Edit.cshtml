@@ -1,0 +1,78 @@
+﻿@using TDS.Presentation.Ui.Models
+@model TDS.Presentation.Ui.Models.DeliveryViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DeliveryEntity</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.DeliveryEntityId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UpdateDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UpdateDate)
+                @Html.ValidationMessageFor(model => model.UpdateDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Count)
+                @Html.ValidationMessageFor(model => model.Count)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cost, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cost)
+                @Html.ValidationMessageFor(model => model.Cost)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductEntityId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProductEntityId",
+                    Model.Products.Select(e => new SelectListItem { Text = e.Name, Value = e.ProductEntityId.ToString() }))
+                @Html.ValidationMessageFor(model => model.ProductEntityId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProviderEntityId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProviderEntityId",
+                    Model.Providers.Select(e => new SelectListItem { Text = e.Name, Value = e.ProviderEntityId.ToString() }))
+                @Html.ValidationMessageFor(model => model.ProviderEntityId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
