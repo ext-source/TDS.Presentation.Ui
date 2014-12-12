@@ -77,6 +77,18 @@
     <Compile Include="Migrations\201412111923062_UpdateDeliveryEntity.Designer.cs">
       <DependentUpon>201412111923062_UpdateDeliveryEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412112208169_UpdateCartUpdate.cs" />
+    <Compile Include="Migrations\201412112208169_UpdateCartUpdate.Designer.cs">
+      <DependentUpon>201412112208169_UpdateCartUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412112327594_UpdateDeliveryEntity1.cs" />
+    <Compile Include="Migrations\201412112327594_UpdateDeliveryEntity1.Designer.cs">
+      <DependentUpon>201412112327594_UpdateDeliveryEntity1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412120013547_UpdatePurchaseTable.cs" />
+    <Compile Include="Migrations\201412120013547_UpdatePurchaseTable.Designer.cs">
+      <DependentUpon>201412120013547_UpdatePurchaseTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +101,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412111923062_UpdateDeliveryEntity.resx">
       <DependentUpon>201412111923062_UpdateDeliveryEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412112208169_UpdateCartUpdate.resx">
+      <DependentUpon>201412112208169_UpdateCartUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412112327594_UpdateDeliveryEntity1.resx">
+      <DependentUpon>201412112327594_UpdateDeliveryEntity1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412120013547_UpdatePurchaseTable.resx">
+      <DependentUpon>201412120013547_UpdatePurchaseTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

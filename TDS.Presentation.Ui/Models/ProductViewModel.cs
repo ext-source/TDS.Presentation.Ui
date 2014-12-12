@@ -50,6 +50,12 @@ namespace TDS.Presentation.Ui.Models
             set;
         }
 
+        public int DeliveryId
+        {
+            get;
+            set;
+        }
+
         public int Cost
         {
             get;

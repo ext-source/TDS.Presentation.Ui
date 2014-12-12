@@ -39,38 +39,52 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductInfo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categories.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Provider.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsExists)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductEntityId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductEntityId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductEntityId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categories.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provider.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsExists)
+            </td>
+            <td>
+                @using (Html.BeginForm("AddToCart", "Products"))
+                {
+                    @Html.AntiForgeryToken()
+                    
+                    @Html.Hidden("ProductEntityId", item.ProductEntityId)
+                    @Html.Hidden("DeliveryId", item.DeliveryId)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="To Cart" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductEntityId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductEntityId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductEntityId })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -16,7 +16,7 @@ namespace TDS.DataAccess.Migrations
                         DeliveryEntity_DeliveryEntityId = c.Int(nullable: false),
                         CartEntity_CartEntityId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.DeliveryEntity_DeliveryEntityId, t.CartEntity_CartEntityId })
+                //.PrimaryKey(t => new { t.DeliveryEntity_DeliveryEntityId, t.CartEntity_CartEntityId })
                 .ForeignKey("dbo.Delivery", t => t.DeliveryEntity_DeliveryEntityId, cascadeDelete: true)
                 .ForeignKey("dbo.Cart", t => t.CartEntity_CartEntityId, cascadeDelete: true)
                 .Index(t => t.DeliveryEntity_DeliveryEntityId)

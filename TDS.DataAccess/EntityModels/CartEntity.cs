@@ -13,6 +13,12 @@ namespace TDS.DataAccess.EntityModels
             set;
         }
 
+        public string UserIdentity
+        {
+            get;
+            set;
+        }
+
         public virtual ICollection<DeliveryEntity> Deliveries
         {
             get;

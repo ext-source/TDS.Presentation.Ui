@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TDS.DataAccess.EntityModels
+namespace TDS.Presentation.Ui.Models
 {
-    [Table("Purchase")]
-    public class PurchaseEntity
+    public class CartViewModel
     {
-        public int PurchaseEntityId
+        public int CartEntityId
         {
             get;
             set;
         }
 
-        public virtual ICollection<DeliveryEntity> Deliveries
+        public string ProductsName
         {
             get;
             set;
         }
 
-        public DateTime CreationDate
+        public int Cost
         {
             get;
             set;
         }
 
-        public string AdditionalInfo
+        public string DeliveryName
         {
             get;
             set;
@@ -37,13 +34,13 @@ namespace TDS.DataAccess.EntityModels
             set;
         }
 
-        public string UserIdentity
+        public int Count
         {
             get;
             set;
         }
 
-        public virtual PaymentEntity Payment
+        public DateTime UpdateDate
         {
             get;
             set;

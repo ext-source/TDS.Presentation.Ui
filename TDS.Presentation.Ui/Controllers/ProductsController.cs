@@ -4,6 +4,8 @@ using System.Web.Mvc;
 
 using AutoMapper;
 
+using Microsoft.AspNet.Identity;
+
 using TDS.Business.Services.Interface;
 using TDS.DataAccess.EntityModels;
 using TDS.Presentation.Ui.Models;
@@ -16,17 +18,20 @@ namespace TDS.Presentation.Ui.Controllers
         private readonly ICategoryService<CategoryEntity> categoryService;
         private readonly IDeliveryService<DeliveryEntity> deliveryService;
         private readonly IProviderService<ProviderEntity> providerService;
+        private readonly ICartService cartService;
 
         public ProductsController(
             IProductsService<ProductEntity> productsService,
             ICategoryService<CategoryEntity> categoryService,
             IDeliveryService<DeliveryEntity> deliveryService,
-            IProviderService<ProviderEntity> providerService)
+            IProviderService<ProviderEntity> providerService,
+            ICartService cartService)
         {
             this.productsService = productsService;
             this.categoryService = categoryService;
             this.deliveryService = deliveryService;
             this.providerService = providerService;
+            this.cartService = cartService;
         }
 
         public ActionResult Index()
@@ -38,7 +43,8 @@ namespace TDS.Presentation.Ui.Controllers
                 foreach (DeliveryEntity delivery in deliveryService.GetByProductId(product.ProductEntityId))
                 {
                     ProductViewModel viewModel = Mapper.Map<ProductViewModel>(product);
-                    
+
+                    viewModel.DeliveryId = delivery.DeliveryEntityId;
                     viewModel.Cost = delivery.Cost;
                     viewModel.IsExists = delivery.Count > 0;
                     viewModel.Provider = Mapper.Map<ProviderViewModel>(providerService.GetById(delivery.ProviderEntityId));
@@ -183,6 +189,15 @@ namespace TDS.Presentation.Ui.Controllers
             }
 
             return View("Index", viewsModels);
+        }
+
+        public ActionResult AddToCart(
+            [Bind(Include = "ProductEntityId,DeliveryId")] ProductViewModel viewModel)
+        {
+            DeliveryEntity delivery = deliveryService.GetById(viewModel.DeliveryId);
+            cartService.AddDelivery(User.Identity.GetUserId(), delivery);
+
+            return RedirectToAction("Index");
         }
     }
 }

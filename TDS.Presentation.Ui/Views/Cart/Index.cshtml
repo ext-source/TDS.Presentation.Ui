@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TDS.Presentation.Ui.Models.CartViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductsName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
+Count: @Model.Count()
+
+Total: @Model.Select(e => e.Cost).Sum()
+
+@if (Model.Any())
+{
+    using (Html.BeginForm("Apply", "Cart"))
+    {
+        @Html.AntiForgeryToken()
+        <text>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Apply" class="btn btn-default"/>
+                </div>
+            </div>
+        </text>
+    }
+}

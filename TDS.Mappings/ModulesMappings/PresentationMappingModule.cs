@@ -24,6 +24,18 @@ namespace TDS.Mappings.ModulesMappings
 
             Bind<IProviderService<ProviderEntity>>()
                 .To<ProviderService>();
+
+            Bind<ICartService>()
+                .To<CartService>();
+
+            Bind<IPurchaseService>()
+                .To<PurchaseService>();
+
+            Bind<IPaymentSystem>()
+                .To<PaymentSystem>();
+
+            Bind<IPaymentService>()
+                .To<PaymentService>();
         }
     }
 }
